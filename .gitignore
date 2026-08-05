@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset
+data/raw/
+data/processed/
+data/synthetic/
+data/splits/
+# Model outputs
+checkpoints/
+outputs/
+experiments/
+
+# Logs
+logs/
+wandb/
+runs/
+
+# Models
+*.pt
+*.pth
+*.onnx
+
+# OS
+.DS_Store
+Thumbs.db
