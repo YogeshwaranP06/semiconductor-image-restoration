@@ -1,3 +1,5 @@
+%%writefile losses/factory.py
+
 """
 Loss Factory
 ============
@@ -7,7 +9,10 @@ Creates loss functions from configuration.
 
 import torch.nn as nn
 
-from losses.losses import CharbonnierLoss
+from losses.losses import (
+    CharbonnierLoss,
+    GradientL1Loss,
+)
 
 
 def create_loss(config):
@@ -22,6 +27,16 @@ def create_loss(config):
 
     elif loss_name == "charbonnierloss":
         return CharbonnierLoss()
+
+    elif loss_name == "gradientl1loss":
+        lambda_gradient = config["loss"].get(
+            "lambda_gradient",
+            0.1,
+        )
+
+        return GradientL1Loss(
+            lambda_gradient=lambda_gradient,
+        )
 
     raise ValueError(
         f"Unknown loss function: {loss_name}"
