@@ -1,10 +1,10 @@
 %%writefile losses/losses.py
 
 """
-Loss Functions
-==============
-
 Collection of loss functions for image restoration.
+
+Project:
+Semiconductor Image Restoration
 """
 
 import torch
@@ -14,7 +14,7 @@ import torch.nn.functional as F
 
 class CharbonnierLoss(nn.Module):
     """
-    Robust L1 Loss (Charbonnier Loss)
+    Robust L1 Loss (Charbonnier Loss).
     """
 
     def __init__(self, epsilon: float = 1e-6):
@@ -23,10 +23,12 @@ class CharbonnierLoss(nn.Module):
 
     def forward(self, prediction, target):
         diff = prediction - target
+
         loss = torch.sqrt(
             diff * diff
             + self.epsilon * self.epsilon
         )
+
         return loss.mean()
 
 
@@ -35,7 +37,7 @@ class GradientLoss(nn.Module):
     Gradient-based reconstruction loss.
 
     Penalizes differences between the horizontal
-    and vertical image gradients of the prediction
+    and vertical image gradients of prediction
     and ground truth.
     """
 
@@ -44,11 +46,25 @@ class GradientLoss(nn.Module):
 
     def forward(self, prediction, target):
 
-        pred_dx = prediction[:, :, :, 1:] - prediction[:, :, :, :-1]
-        pred_dy = prediction[:, :, 1:, :] - prediction[:, :, :-1, :]
+        pred_dx = (
+            prediction[:, :, :, 1:]
+            - prediction[:, :, :, :-1]
+        )
 
-        target_dx = target[:, :, :, 1:] - target[:, :, :, :-1]
-        target_dy = target[:, :, 1:, :] - target[:, :, :-1, :]
+        pred_dy = (
+            prediction[:, :, 1:, :]
+            - prediction[:, :, :-1, :]
+        )
+
+        target_dx = (
+            target[:, :, :, 1:]
+            - target[:, :, :, :-1]
+        )
+
+        target_dy = (
+            target[:, :, 1:, :]
+            - target[:, :, :-1, :]
+        )
 
         loss_x = F.l1_loss(
             pred_dx,
@@ -77,6 +93,7 @@ class GradientL1Loss(nn.Module):
         super().__init__()
 
         self.lambda_gradient = lambda_gradient
+
         self.l1 = nn.L1Loss()
         self.gradient = GradientLoss()
 
