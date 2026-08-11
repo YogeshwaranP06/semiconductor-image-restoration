@@ -1,8 +1,7 @@
 %%writefile losses/factory.py
 
 """
-Loss Factory
-============
+Loss factory for Semiconductor Image Restoration.
 
 Creates loss functions from configuration.
 """
@@ -16,6 +15,9 @@ from losses.losses import (
 
 
 def create_loss(config):
+    """
+    Create a loss function from the configuration.
+    """
 
     loss_name = config["loss"]["name"].lower()
 
@@ -29,6 +31,7 @@ def create_loss(config):
         return CharbonnierLoss()
 
     elif loss_name == "gradientl1loss":
+
         lambda_gradient = config["loss"].get(
             "lambda_gradient",
             0.1,
