@@ -1,0 +1,4 @@
+# Exp2 large binary artifacts
+best_model.pth filter=lfs diff=lfs merge=lfs -text
+predictions/*.npy filter=lfs diff=lfs merge=lfs -text
+phase8_failure_analysis/**/*.png filter=lfs diff=lfs merge=lfs -text
