@@ -45,27 +45,23 @@ Semiconductor inspection systems rely on high-quality microscopic images to iden
 
 The restoration mapping is:
 
-```
-128 × 128 degraded image
-          │
-          ▼
-      SRDnCNN model
-          │
-          ▼
-256 × 256 restored image
-```
+    128 × 128 degraded image
+              │
+              ▼
+          SRDnCNN model
+              │
+              ▼
+    256 × 256 restored image
 
 ## 2. Problem Statement
 
 The KLA semiconductor image restoration problem provides degraded semiconductor inspection images and corresponding high-resolution training targets. The model must learn:
 
-```
-Degraded NoisyLR image
-          ↓
-   Image restoration
-          ↓
-High-resolution output
-```
+    Degraded NoisyLR image
+              ↓
+       Image restoration
+              ↓
+    High-resolution output
 
 ## 3. Objective
 
@@ -97,39 +93,33 @@ The project uses paired degraded and ground-truth semiconductor inspection image
 
 Ground Truth statistics:
 
-```
-Images : 3200
-Shape  : 256 × 256
-Dtype  : float32
-Min    : 0.000000
-Max    : 1.000000
-Mean   : 0.433528
-Std    : 0.187629
-```
+    Images : 3200
+    Shape  : 256 × 256
+    Dtype  : float32
+    Min    : 0.000000
+    Max    : 1.000000
+    Mean   : 0.433528
+    Std    : 0.187629
 
 Training NoisyLR statistics:
 
-```
-Images : 3200
-Shape  : 128 × 128
-Dtype  : float32
-Min    : -0.278563
-Max    : 2.158005
-Mean   : 0.433536
-Std    : 0.205795
-```
+    Images : 3200
+    Shape  : 128 × 128
+    Dtype  : float32
+    Min    : -0.278563
+    Max    : 2.158005
+    Mean   : 0.433536
+    Std    : 0.205795
 
 Test NoisyLR statistics:
 
-```
-Images : 400
-Shape  : 128 × 128
-Dtype  : float32
-Min    : -0.224881
-Max    : 2.158016
-Mean   : 0.442742
-Std    : 0.220269
-```
+    Images : 400
+    Shape  : 128 × 128
+    Dtype  : float32
+    Min    : -0.224881
+    Max    : 2.158016
+    Mean   : 0.442742
+    Std    : 0.220269
 
 All GT and NoisyLR pairs were verified to match. The dataset is excluded from Git. See [docs/dataset_report.md](docs/dataset_report.md).
 
@@ -139,15 +129,13 @@ The setting includes speckle noise, Gaussian noise, downsampling, reduced spatia
 
 ## 6. Proposed Pipeline
 
-```
-Degraded NoisyLR (128 × 128)
-              ↓
-       SRDnCNN restoration
-              ↓
-Restored output (256 × 256)
-              ↓
-PSNR / SSIM / LPIPS / Bicubic / visual analysis
-```
+    Degraded NoisyLR (128 × 128)
+                  ↓
+           SRDnCNN restoration
+                  ↓
+    Restored output (256 × 256)
+                  ↓
+    PSNR / SSIM / LPIPS / Bicubic / visual analysis
 
 ## 7. Model Architecture
 
@@ -163,25 +151,21 @@ PSNR / SSIM / LPIPS / Bicubic / visual analysis
 
 Implementation files:
 
-```
-models/srdncnn.py
-models/common/
-models/factory.py
-```
+    models/srdncnn.py
+    models/common/
+    models/factory.py
 
 ## 8. Experimental Design
 
-```
-Experiment 1: SRDnCNN baseline
-          ↓
-Experiment 2: L1Loss ablation and frozen final configuration
-          ↓
-Experiment 3: Synthetic degradation training
-          ↓
-Phase 8: Failure analysis
-          ↓
-Phase 9: Runtime, inference, verification, and artifact audit
-```
+    Experiment 1: SRDnCNN baseline
+              ↓
+    Experiment 2: L1Loss ablation and frozen final configuration
+              ↓
+    Experiment 3: Synthetic degradation training
+              ↓
+    Phase 8: Failure analysis
+              ↓
+    Phase 9: Runtime, inference, verification, and artifact audit
 
 ## 9. Experiment 1 — SRDnCNN Baseline
 
@@ -189,9 +173,7 @@ Experiment 1 established the initial SRDnCNN restoration baseline.
 
 Report:
 
-```
-results/experiment1/Experiment_1_SRDnCNN_Baseline.docx
-```
+    results/experiment1/Experiment_1_SRDnCNN_Baseline.docx
 
 ## 10. Experiment 2 — L1Loss Ablation
 
@@ -211,15 +193,13 @@ Experiment 2 evaluated SRDnCNN using L1Loss and became the frozen final configur
 | Seed | 42 |
 | Training device | NVIDIA Tesla T4 |
 
-```
-Paired training samples : 3200
-Training split          : 2880
-Validation split        : 320
-Test NoisyLR samples    : 400
+    Paired training samples : 3200
+    Training split          : 2880
+    Validation split        : 320
+    Test NoisyLR samples    : 400
 
-Best epoch              : 50
-Best validation L1 loss : 0.0311003166
-```
+    Best epoch              : 50
+    Best validation L1 loss : 0.0311003166
 
 | Metric | Result |
 |---|---:|
@@ -248,23 +228,19 @@ Experiment 3 investigated training with synthetic degradation to study whether c
 
 Report:
 
-```
-results/experiment3/EXP3_Synthetic_Degradation_Training_Report.docx
-```
+    results/experiment3/EXP3_Synthetic_Degradation_Training_Report.docx
 
 ## 12. Final Selected Model
 
-```
-SRDnCNN + L1Loss
+    SRDnCNN + L1Loss
 
-Epochs        : 50
-Batch size    : 8
-Learning rate : 0.0001
-Optimizer     : Adam
-Scheduler     : CosineAnnealingLR
-Seed          : 42
-Training GPU  : NVIDIA Tesla T4
-```
+    Epochs        : 50
+    Batch size    : 8
+    Learning rate : 0.0001
+    Optimizer     : Adam
+    Scheduler     : CosineAnnealingLR
+    Seed          : 42
+    Training GPU  : NVIDIA Tesla T4
 
 ## 13. Evaluation Metrics
 
@@ -284,72 +260,62 @@ The main limitation identified was fine and high-frequency texture reconstructio
 
 Report:
 
-```
-results/phase8_failure_analysis/Phase_8_Failure_Analysis_Semiconductor_Image_Restoration.docx
-```
+    results/phase8_failure_analysis/Phase_8_Failure_Analysis_Semiconductor_Image_Restoration.docx
 
 ## 16. Final Phase 9 Pipeline
 
-```
-Phase 9.2  Runtime benchmark
-Phase 9.3  Final inference script and 400-image test inference
-Phase 9.4  Prediction verification
-Phase 9.5  Final visual inspection
-Phase 9.6  Artifact and reproducibility audit
-```
+    Phase 9.2  Runtime benchmark
+    Phase 9.3  Final inference script and 400-image test inference
+    Phase 9.4  Prediction verification
+    Phase 9.5  Final visual inspection
+    Phase 9.6  Artifact and reproducibility audit
 
 ## 17. Runtime Benchmark
 
 The first recorded runtime benchmark was performed on an NVIDIA Tesla T4 with CUDA.
 
-```
-Model-only:
-Images       : 320
-Batch size   : 1
-Warm-up runs : 20
-Mean latency : 4.861 ms
-Median       : 4.726 ms
-Throughput   : 205.700 images/s
+    Model-only:
+    Images       : 320
+    Batch size   : 1
+    Warm-up runs : 20
+    Mean latency : 4.861 ms
+    Median       : 4.726 ms
+    Throughput   : 205.700 images/s
 
-End-to-end:
-Mean latency : 6.342 ms
-Median       : 6.337 ms
-Throughput   : 157.673 images/s
-```
+    End-to-end:
+    Mean latency : 6.342 ms
+    Median       : 6.337 ms
+    Throughput   : 157.673 images/s
 
 ## 18. Final Test Inference
 
-```
-Device          : NVIDIA Tesla T4
-Checkpoint      : Epoch 50
-Checkpoint loss : 0.031100316578522323
-Test images     : 400
-Output files    : 400
-Mean inference  : 7.924 ms
-Median inference: 7.149 ms
-Total inference : 3.170 s
-Throughput      : 126.192 images/s
-```
+    Device          : NVIDIA Tesla T4
+    Checkpoint      : Epoch 50
+    Checkpoint loss : 0.031100316578522323
+    Test images     : 400
+    Output files    : 400
+    Mean inference  : 7.924 ms
+    Median inference: 7.149 ms
+    Total inference : 3.170 s
+    Throughput      : 126.192 images/s
 
 ## 19. Final Prediction Verification
 
-```
-Test inputs      : 400
-Prediction files : 400
-Missing IDs      : 0
-Extra IDs        : 0
-Bad shapes       : 0
-Bad dtypes       : 0
-NaN/Inf files    : 0
+    Test inputs      : 400
+    Prediction files : 400
+    Missing IDs      : 0
+    Extra IDs        : 0
+    Bad shapes       : 0
+    Bad dtypes       : 0
+    NaN/Inf files    : 0
 
-First prediction : 000000.npy
-Last prediction  : 000399.npy
-Global minimum   : -0.22802016139030457
-Global maximum   : 1.265357255935669
-Mean of means    : 0.4422313290741295
+    First prediction : 000000.npy
+    Last prediction  : 000399.npy
+    Global minimum   : -0.22802016139030457
+    Global maximum   : 1.265357255935669
+    Mean of means    : 0.4422313290741295
 
-PHASE 9.4 — FINAL PREDICTION VERIFICATION PASSED
-```
+    PHASE 9.4 — FINAL PREDICTION VERIFICATION PASSED
 
 ## 20. Visual Inspection
 
@@ -357,100 +323,94 @@ Representative samples were 000000, 000025, 000050, 000075, 000100, 000150, 0002
 
 The inspection generated 12 individual comparison images and one contact sheet:
 
-```
-results/experiment2/final_visual_inspection/
-└── phase9_5_final_test_contact_sheet.png
-```
+    results/experiment2/final_visual_inspection/
+    └── phase9_5_final_test_contact_sheet.png
 
 ## 21. Reproducibility Audit
 
-```
-OK : train.py
-OK : SRDnCNN model and factory
-OK : Exp2 configuration and checkpoint
-OK : training history and log
-OK : LPIPS summary and per-image records
-OK : runtime summary and per-image records
-OK : final inference script
-OK : final predictions and timing
-OK : visual inspection
+    OK : train.py
+    OK : SRDnCNN model and factory
+    OK : Exp2 configuration and checkpoint
+    OK : training history and log
+    OK : LPIPS summary and per-image records
+    OK : runtime summary and per-image records
+    OK : final inference script
+    OK : final predictions and timing
+    OK : visual inspection
 
-Backup files             : 821
-Backup final predictions : 400
-Backup visual artifacts  : 13
+    Backup files             : 821
+    Backup final predictions : 400
+    Backup visual artifacts  : 13
 
-PHASE 9.6 — FINAL ARTIFACT AUDIT: PASSED
-All event-critical artifacts are present.
-The computational experiment is frozen.
-```
+    PHASE 9.6 — FINAL ARTIFACT AUDIT: PASSED
+    All event-critical artifacts are present.
+    The computational experiment is frozen.
 
 ## 22. Repository Structure
 
-```
-semiconductor-image-restoration/
-├── .github/
-├── .gitattributes
-├── .gitignore
-├── checkpoint/
-│   └── exp2_epoch50_best_model.pth
-├── configs/
-│   └── default.yaml
-├── datasets/
-│   ├── __init__.py
-│   ├── augmentations.py
-│   ├── datamodule.py
-│   ├── dataset.py
-│   └── transforms.py
-├── docs/
-│   └── dataset_report.md
-├── losses/
-│   ├── __init__.py
-│   ├── factory.py
-│   └── losses.py
-├── models/
-│   ├── factory.py
-│   ├── srdncnn.py
-│   └── common/
-│       ├── blocks.py
-│       └── layers.py
-├── scripts/
-│   ├── analyze_dataset.py
-│   ├── test_augmentations.py
-│   ├── test_checkpoint.py
-│   ├── test_config.py
-│   ├── test_dataloader.py
-│   ├── test_dataset.py
-│   ├── test_logger.py
-│   ├── test_loss.py
-│   ├── test_model.py
-│   ├── test_optimizer.py
-│   ├── test_scheduler.py
-│   ├── test_seed.py
-│   └── test_transforms.py
-├── training/
-│   ├── checkpoint.py
-│   ├── engine.py
-│   ├── optimizer.py
-│   ├── scheduler.py
-│   └── trainer.py
-├── utils/
-│   ├── config.py
-│   ├── logger.py
-│   └── seed.py
-├── train.py
-├── inference.py
-├── demo.py
-├── view_train_outputs.py
-├── requirements.txt
-├── results/
-│   ├── comparisons/
-│   ├── experiment1/
-│   ├── experiment2/
-│   ├── experiment3/
-│   ├── phase8_failure_analysis/
-│   └── results/
-└── README.md
-```
+    semiconductor-image-restoration/
+    ├── .github/
+    ├── .gitattributes
+    ├── .gitignore
+    ├── checkpoint/
+    │   └── exp2_epoch50_best_model.pth
+    ├── configs/
+    │   └── default.yaml
+    ├── datasets/
+    │   ├── __init__.py
+    │   ├── augmentations.py
+    │   ├── datamodule.py
+    │   ├── dataset.py
+    │   └── transforms.py
+    ├── docs/
+    │   └── dataset_report.md
+    ├── losses/
+    │   ├── __init__.py
+    │   ├── factory.py
+    │   └── losses.py
+    ├── models/
+    │   ├── factory.py
+    │   ├── srdncnn.py
+    │   └── common/
+    │       ├── blocks.py
+    │       └── layers.py
+    ├── scripts/
+    │   ├── analyze_dataset.py
+    │   ├── test_augmentations.py
+    │   ├── test_checkpoint.py
+    │   ├── test_config.py
+    │   ├── test_dataloader.py
+    │   ├── test_dataset.py
+    │   ├── test_logger.py
+    │   ├── test_loss.py
+    │   ├── test_model.py
+    │   ├── test_optimizer.py
+    │   ├── test_scheduler.py
+    │   ├── test_seed.py
+    │   └── test_transforms.py
+    ├── training/
+    │   ├── checkpoint.py
+    │   ├── engine.py
+    │   ├── optimizer.py
+    │   ├── scheduler.py
+    │   └── trainer.py
+    ├── utils/
+    │   ├── config.py
+    │   ├── logger.py
+    │   └── seed.py
+    ├── train.py
+    ├── inference.py
+    ├── demo.py
+    ├── view_train_outputs.py
+    ├── requirements.txt
+    ├── results/
+    │   ├── comparisons/
+    │   ├── experiment1/
+    │   ├── experiment2/
+    │   ├── experiment3/
+    │   ├── phase8_failure_analysis/
+    │   └── results/
+    └── README.md
 
 The original dataset, generated prediction arrays, temporary outputs, and large experiment archives are not part of the normal source tree.
 
@@ -458,76 +418,58 @@ The original dataset, generated prediction arrays, temporary outputs, and large 
 
 Dependencies:
 
-```
-torch
-torchvision
-numpy
-PyYAML
-tqdm
-matplotlib
-```
+    torch
+    torchvision
+    numpy
+    PyYAML
+    tqdm
+    matplotlib
 
 Install:
 
-```
-py -m pip install -r requirements.txt
-```
+    py -m pip install -r requirements.txt
 
 ## 24. Running Inference
 
 The evaluator-facing entry point is [inference.py](inference.py). Defaults:
 
-```
-Configuration: configs/default.yaml
-Checkpoint  : checkpoint/exp2_epoch50_best_model.pth
-```
+    Configuration: configs/default.yaml
+    Checkpoint  : checkpoint/exp2_epoch50_best_model.pth
 
 Run:
 
-```
-py inference.py --input_dir "PATH_TO_INPUT_DIRECTORY" --output_dir "PATH_TO_OUTPUT_DIRECTORY"
-```
+    py inference.py --input_dir "PATH_TO_INPUT_DIRECTORY" --output_dir "PATH_TO_OUTPUT_DIRECTORY"
 
 Example:
 
-```
-py inference.py --input_dir "E:\semiconductor-image-restoration\data\raw\Test_NoisyLR\NoisyLR" --output_dir "E:\semiconductor-image-restoration\submission_output"
-```
+    py inference.py --input_dir "E:\semiconductor-image-restoration\data\raw\Test_NoisyLR\NoisyLR" --output_dir "E:\semiconductor-image-restoration\submission_output"
 
 To override the checkpoint:
 
-```
-py inference.py --input_dir "path\to\NoisyLR" --output_dir "path\to\output" --checkpoint "path\to\exp2_epoch50_best_model.pth"
-```
+    py inference.py --input_dir "path\to\NoisyLR" --output_dir "path\to\output" --checkpoint "path\to\exp2_epoch50_best_model.pth"
 
 The script validates inputs, loads the checkpoint, writes one .npy prediction per input, and verifies count, shape, dtype, and numerical validity.
 
 Expected shape:
 
-```
-Input  : 128 × 128
-Output : 256 × 256
-```
+    Input  : 128 × 128
+    Output : 256 × 256
 
 ## 25. Training
 
 The training entry point is [train.py](train.py):
 
-```
-py train.py --config configs/default.yaml
-```
+    py train.py --config configs/default.yaml
 
 The frozen experiment used 50 epochs, batch size 8, Adam, learning rate 0.0001, CosineAnnealingLR, and seed 42.
 
 ## 26. Checkpoint
 
-```
-checkpoint/exp2_epoch50_best_model.pth
+    checkpoint/exp2_epoch50_best_model.pth
 
-Epoch            : 50
-Validation loss  : 0.031100316578522323
-Model parameters : 739,777
-```
+    Epoch            : 50
+    Validation loss  : 0.031100316578522323
+    Model parameters : 739,777
 
 Large binary artifacts should generally be stored with Git LFS or an external experiment archive rather than ordinary Git blobs.
 
@@ -564,17 +506,15 @@ The complete local Experiment 2 archive is EXP2_RESULTS_FINAL.zip.
 
 ## 30. Final Project Status
 
-```
-Final model          : SRDnCNN + L1Loss
-Input resolution     : 128 × 128
-Output resolution    : 256 × 256
-Test images          : 400
-Predictions verified : 400 / 400
-Missing outputs      : 0
-Bad shapes           : 0
-NaN/Inf outputs      : 0
-Inference pipeline   : PASSED
-Artifact audit       : PASSED
-```
+    Final model          : SRDnCNN + L1Loss
+    Input resolution     : 128 × 128
+    Output resolution    : 256 × 256
+    Test images          : 400
+    Predictions verified : 400 / 400
+    Missing outputs      : 0
+    Bad shapes           : 0
+    NaN/Inf outputs      : 0
+    Inference pipeline   : PASSED
+    Artifact audit       : PASSED
 
 The project is ready for repository review and evaluator-facing inference.
