@@ -42,8 +42,8 @@ checkpoints/
 *.onnx
 
 # Final Exp2 submission checkpoint
-!demo_checkpoint/
-!demo_checkpoint/exp2_epoch50_best_model.pth
+!checkpoint/
+!checkpoint/exp2_epoch50_best_model.pth
 
 # ============================================================
 # Temporary local testing

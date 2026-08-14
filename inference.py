@@ -24,7 +24,7 @@ DEFAULT_CONFIG = (
 
 DEFAULT_CHECKPOINT = (
     PROJECT
-    / "demo_checkpoint"
+    / "checkpoint"
     / "exp2_epoch50_best_model.pth"
 )
 
