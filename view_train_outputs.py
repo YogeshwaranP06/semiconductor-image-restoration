@@ -1,4 +1,4 @@
-from pathlib import Path
+﻿from pathlib import Path
 import numpy as np
 import torch
 import yaml
@@ -14,7 +14,7 @@ PROJECT = Path(__file__).resolve().parent
 
 CHECKPOINT = (
     PROJECT
-    / "demo_checkpoint"
+    / "checkpoint"
     / "exp2_epoch50_best_model.pth"
 )
 
@@ -221,7 +221,7 @@ for sample_id in SAMPLES:
         cmap="gray"
     )
     axes[0].set_title(
-        f"Degraded Input\n{sample_id} — 128×128"
+        f"Degraded Input\n{sample_id} â€” 128Ã—128"
     )
     axes[0].axis("off")
 
@@ -232,7 +232,7 @@ for sample_id in SAMPLES:
         vmax=vmax
     )
     axes[1].set_title(
-        "Bicubic\n256×256"
+        "Bicubic\n256Ã—256"
     )
     axes[1].axis("off")
 
@@ -243,7 +243,7 @@ for sample_id in SAMPLES:
         vmax=vmax
     )
     axes[2].set_title(
-        "SRDnCNN Output\n256×256"
+        "SRDnCNN Output\n256Ã—256"
     )
     axes[2].axis("off")
 
@@ -254,12 +254,12 @@ for sample_id in SAMPLES:
         vmax=vmax
     )
     axes[3].set_title(
-        "Ground Truth\n256×256"
+        "Ground Truth\n256Ã—256"
     )
     axes[3].axis("off")
 
     fig.suptitle(
-        f"Semiconductor Image Restoration — Sample {sample_id}",
+        f"Semiconductor Image Restoration â€” Sample {sample_id}",
         fontsize=16
     )
 
