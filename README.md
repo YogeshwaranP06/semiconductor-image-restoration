@@ -228,7 +228,7 @@ Experiment 3 investigated training with synthetic degradation to study whether c
 
 Report:
 
-    results/experiment3/EXP3_Synthetic_Degradation_Training_Report.docx
+see   [the full report](results/experiment3/EXP3_Synthetic_Degradation_Training_Report.docx).
 
 ## 12. Final Selected Model
 
