@@ -319,10 +319,7 @@ The first recorded runtime benchmark was performed on an NVIDIA Tesla T4 with CU
 
 ## 20. Visual Inspection
 
-- [20. Visual Inspection](#20-visual-inspection)
-  - [20.1 Phase 9.5 — Final Test-Set Qualitative Results](#201-phase-95--final-test-set-qualitative-results)
- 
-  - ### 20.1 Phase 9.5 — Final Test-Set Qualitative Results
+### 20.1 Phase 9.5 — Final Test-Set Qualitative Results
 
 The final selected SRDnCNN model was evaluated qualitatively on representative
 held-out test samples. The contact sheet compares the original degraded
