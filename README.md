@@ -173,7 +173,7 @@ Experiment 1 established the initial SRDnCNN restoration baseline.
 
 Report:
 
-    results/experiment1/Experiment_1_SRDnCNN_Baseline.docx
+see  [the full report](results/experiment1/Experiment_1_SRDnCNN_Baseline.docx).
 
 ## 10. Experiment 2 — L1Loss Ablation
 
