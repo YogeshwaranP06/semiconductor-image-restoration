@@ -260,7 +260,7 @@ The main limitation identified was fine and high-frequency texture reconstructio
 
 Report:
 
-    results/phase8_failure_analysis/Phase_8_Failure_Analysis_Semiconductor_Image_Restoration.docx
+see  [the full report](results/phase8_failure_analysis/Phase_8_Failure_Analysis_Semiconductor_Image_Restoration.docx).
 
 ## 16. Final Phase 9 Pipeline
 
